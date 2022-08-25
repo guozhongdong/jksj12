@@ -18,7 +18,7 @@ public class SelectSort {
 
     /**
      * 选择排序
-     * 每次在未排序取件选择最小的元素，放到已排序区间的末尾
+     * 每次在未排序区间选择最小的元素，放到已排序区间的末尾
      */
     public static void selectSort(int[] nums){
 
