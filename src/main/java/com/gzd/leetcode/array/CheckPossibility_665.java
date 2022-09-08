@@ -1,5 +1,7 @@
 package com.gzd.leetcode.array;
 
+import java.util.Stack;
+
 /**
  *
  * 给你一个长度为 n 的整数数组 nums ，请你判断在 最多 改变 1 个元素的情况下，
@@ -45,7 +47,8 @@ public class CheckPossibility_665 {
     public static void main(String[] args) {
         int[] nums = {3,4,2,5};
         CheckPossibility_665 check = new CheckPossibility_665();
-        System.out.println(check.checkPossibility(nums));
+        //System.out.println(check.checkPossibility(nums));
+        System.out.println(check.checkPossibility1(nums));
     }
 
 
@@ -90,5 +93,45 @@ public class CheckPossibility_665 {
             }
         }
         return count < 1 ;
+    }
+
+
+    /**
+     * 使用栈
+     *
+     */
+    public boolean checkPossibility1(int[] nums) {
+        if (nums == null){
+            return false;
+        }
+        if (nums.length == 1){
+            return true;
+        }
+        /**
+         * 往里面压入元素，遇到比它大的，弹出，如果弹出的次数大于1，则结束不满足
+         *
+         *
+         * */
+        int count = 0;
+        Stack<Integer> stack = new Stack<>();
+        stack.push(nums[0]);
+        for (int i = 1; i < nums.length; i++) {
+            // 取数不弹出
+            int temp = stack.peek();
+            if (nums[i] >= temp){
+                stack.push(nums[i]);
+            }else {
+                while (!stack.isEmpty()){
+                    if (stack.peek() <= nums[i]){
+                        break;
+                    }
+                    stack.pop();
+                    count++;
+                }
+            }
+
+        }
+        // 判断是否单调递增
+        return count <= 1 ;
     }
 }
