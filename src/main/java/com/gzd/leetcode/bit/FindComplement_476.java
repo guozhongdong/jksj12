@@ -8,6 +8,12 @@ package com.gzd.leetcode.bit;
  * 给你一个整数 num ，输出它的补数。
  *
  *  
+ * 1100
+ *
+ * 1011
+ * 0101
+ *
+ *
  *
  * 示例 1：
  *
@@ -22,26 +28,37 @@ package com.gzd.leetcode.bit;
  *
  * 二进制取反
  *
+ * 先找最高位的1
+ * 如果1在0-30为之间，可以说明它是正数，直接跟 全是1的数异或
+ * 如果不在则特殊处理，
+ *
+ *
  * @author guozhongdong
  */
 public class FindComplement_476 {
 
     public static void main(String[] args) {
         FindComplement_476 complement = new FindComplement_476();
-        System.out.println(Integer.toBinaryString(5 ^ 15));
-        System.out.println(Integer.toBinaryString(complement.findComplement(5)));
+        System.out.println(Integer.toBinaryString(0x7fffffff ^ 5));
+        // 011
+        // 000
+        System.out.println(complement.findComplement(3));
     }
 
     public int findComplement(int num) {
-
+        // 011 -> 110
+        // 100 -> 1000 0111 ^ 0101 -> 0010
         int res = 0;
-        for (int i = 0; i < 32; i++) {
-            // 101
-            res = (num ^ 0);
-            num = num >> 1;
-
+        for (int i = 1; i <= 30; i++) {
+            if (num >= (1 << i) ){
+                res = i ;
+            }else {
+                break;
+            }
         }
-        return res;
+
+        int mask = (res == 30 ? 0x7fffffff : (1 << (res+1)) -1);
+        return num ^ mask;
     }
 
 
