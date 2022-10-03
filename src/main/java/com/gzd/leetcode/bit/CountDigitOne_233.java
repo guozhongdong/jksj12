@@ -30,7 +30,7 @@ public class CountDigitOne_233 {
     }
 
     public int countDigitOne(int n) {
-
+        // 1
         return 0;
     }
 }
