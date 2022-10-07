@@ -1,5 +1,7 @@
 package com.gzd.jksj.algo.stack;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 /**
@@ -9,13 +11,27 @@ import java.util.Stack;
 public class StackPractice {
 
     public static void main(String[] args) {
-        // System.out.println(calculate("(3+5)*8-6"));
-        System.out.println(patternBracket("{[}()]"));
+        System.out.println(calculate("3+12/5-6"));
+        //System.out.println(patternBracket("{[}()]"));
     }
+
+    /**
+     * 维护运算符的优先级
+     */
+    static Map<Character, Integer> map = new HashMap<Character, Integer>() {{
+        put('-', 1);
+        put('+', 1);
+        put('*', 2);
+        put('/', 2);
+        put('%', 2);
+        put('^', 3);
+    }};
+
 
     /**
      * 计算一个整数加减乘除表达式的结果
      * 如： 3+5*8-6
+     * TODO 待完善修改
      */
     public static String calculate(String str) {
 
@@ -37,7 +53,7 @@ public class StackPractice {
                     // 取栈顶元素
                     char top = stack2.peek();
                     // 判断优先级
-                    if (ch < top) {
+                    if (map.get(ch) > map.get(top)) {
                         break;
                     } else {
                         char top1 = stack2.pop();
